@@ -1,0 +1,98 @@
+<div style="float: right;" *ngIf="showButtons()">
+  <mat-card-actions>
+    <div class="button-flex-container homeButton">
+      <button mat-raised-button color="primary" (click)="login()">Login</button>
+      <button mat-raised-button color="primary" (click)="signUp()">Register</button>
+    </div>
+  </mat-card-actions>
+</div>
+<h1>Search</h1>
+<div class="row">
+  <div class="col-md-3" style="margin-left: 10px;">
+    <input type="search" class="mat-elevation-z2" placeholder="Select Specialization" [matAutocomplete]="auto"
+      [formControl]="searchControl">
+
+    <div>
+      <mat-autocomplete #auto="matAutocomplete" class="mat-elevation-z2">
+        <mat-option *ngFor="let item of filteredResults$ | async" [value]="item">
+          <span [innerHTML]="item | bold:searchControl.value"></span>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+
+  </div>
+  <div class="col-md-3" style="margin-left: 10px;">
+
+    <input type="search" placeholder="Select Insurance" class="mat-elevation-z2" [matAutocomplete]="autoInsu"
+      [formControl]="insuranceSearch">
+
+    <div>
+      <mat-autocomplete #autoInsu="matAutocomplete" class="mat-elevation-z2">
+        <mat-option *ngFor="let item of filteredInsuResults$ | async" [value]="item">
+          <span [innerHTML]="item | bold:insuranceSearch.value"></span>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+
+  </div>
+  <div class="col-md-2" style="margin-left: 10px;">
+
+    <input type="search" class="mat-elevation-z2" placeholder="Enter Zip Code" [formControl]="zipSearch">
+
+  </div>
+  <div class="col-md-2" style="margin-left: 10px;">
+
+    <button mat-raised-button color="primary" (click)="searchDoc()">Search</button>
+
+  </div>
+
+  <!-- <div class="col-md-4" style="margin-left: 10px;">
+    <button mat-raised-button color="primary" (click)="searchDoc()">Search</button>
+  </div> -->
+</div>
+<section *ngIf="doctors!==null" id="authors" class="my-5 text-center">
+  <div class="container">
+    <div style="margin-left: -875px;">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div *ngFor="let doc of doctors ; let ind=index" class="row">
+      <div style="margin-bottom: 30px;" class="col-lg-6 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <!-- <img src="assets/images/{{ind}}.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
+            <h3>{{doc.name}}</h3>
+            <h5 class="text-muted">{{searchControl.value}}</h5>
+            <p>{{doc.description}}
+            </p>
+            <div class="d-flex justify-content-center">
+              <div class="p-4">
+                <a href="http://facebook.com">
+                  <i class="fab fa-facebook"></i>
+                </a>
+              </div>
+              <div class="p-4">
+                <a href="http://twitter.com">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </div>
+              <div class="p-4">
+                <a href="http://instagram.com">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+
+            </div> -->
+            <app-doctor-availability [doc]="doc" [ind]="ind"></app-doctor-availability>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

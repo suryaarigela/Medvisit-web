@@ -1,0 +1,34 @@
+<div style="background-image: url('assets/images/sign up_image.jpg'); background-repeat: no-repeat;">
+<div class="main-div">
+  <mat-card class = "sign-Instyle">
+    <mat-card-title>
+      <h1 class = "title">Welcome to MedVisit  </h1>
+    </mat-card-title>
+    <hr>
+    <mat-card-content class = "signContent">
+      <form [formGroup]="loginForm">
+
+        <mat-form-field class = "col-sm-12" appearance="outline">
+          <input formControlName="username" matInput placeholder="User Name">
+        </mat-form-field>
+        <br />
+        <mat-form-field class = "col-sm-12" appearance="outline">
+          <input type="password" formControlName="password" matInput placeholder="Password" />
+        </mat-form-field>
+      </form>
+      <div *ngIf="!firstTime" style="color: red;">Please enter valid credentials</div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="button-flex-container">
+        <button class = "col-sm-12" mat-raised-button color="primary" (click)="login()">Login</button>
+        <div class = "col-sm-12 signContent">
+        <span class = "col-sm-6">New to MedVisit? </span>
+          <span class ="col-sm-6 signup" (click)="signUp()"> Sign Up Now</span>
+        </div>
+
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+</div>
