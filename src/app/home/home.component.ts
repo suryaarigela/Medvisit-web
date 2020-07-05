@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   getAllDocSub: Subscription;
   getAllSpecSub: Subscription
   searchControl: FormControl;
+  zipSearch: FormControl;
   insuranceSearch: FormControl;
   filteredResults$: Observable<string[]>;
   filteredInsuResults$: Observable<string[]>;
@@ -62,6 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private readonly router: Router,
     private readonly specialityServ: SpecialitySerService, private readonly shared: SharedServService, private readonly docServ: DoctorsService) {
     this.searchControl = new FormControl('');
+    this.zipSearch = new FormControl('');
     this.insuranceSearch = new FormControl('');
     this.filteredResults$ = this.searchControl.valueChanges.pipe(
       map(val => this.filterResults(val)),
