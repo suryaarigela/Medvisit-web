@@ -8,5 +8,6 @@ export interface Doctor {
     reviews: string[];
     rating: number;
     address: Address;
-
+    availableHours:string[];
+    filledHours:Map<string,string[]>;
 }

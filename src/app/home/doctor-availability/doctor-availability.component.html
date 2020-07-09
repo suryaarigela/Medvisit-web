@@ -7,7 +7,10 @@
   </div>
   <div class="col-6">
     <mat-chip-list aria-label="Fish selection">
-      <mat-chip color="success" class="mat-chip-success" selected>10:10</mat-chip>
+        <mat-chip *ngFor="let recipient of hours | keyvalue" [ngClass]="getClass(recipient.value)" selected>
+        {{recipient.key}}
+        </mat-chip>
+     <!--  <mat-chip color="success" class="mat-chip-success" selected>10:10</mat-chip>
       <mat-chip color="success" class="mat-chip-success" selected>11:10</mat-chip>
       <mat-chip color="success" class="mat-chip-success" selected>12:10</mat-chip>
       <mat-chip color="success" class="mat-chip-success" selected>1:10</mat-chip>
@@ -16,7 +19,7 @@
       <mat-chip color="danger" class="mat-chip-danger" selected>4:10</mat-chip>
       <mat-chip color="success" class="mat-chip-success" selected>5:10</mat-chip>
       <mat-chip color="success" class="mat-chip-success" selected>6:10</mat-chip>
-      <mat-chip color="danger" class="mat-chip-danger" selected>7:10</mat-chip>
+      <mat-chip color="danger" class="mat-chip-danger" selected>7:10</mat-chip> -->
     </mat-chip-list>
   </div>
 </div>

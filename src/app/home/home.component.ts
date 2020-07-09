@@ -9,7 +9,8 @@ import { DoctorsService } from '../doctors.service';
 import { Doctor } from '../model/doctor';
 import { SharedServService } from '../shared-serv.service';
 import { Subscription } from 'rxjs';
-
+import * as moment from 'moment';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,7 +19,7 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
   minDate: Date;
   maxDate: Date;
-
+  selectedDate:FormControl;
 
   ngOnDestroy(): void {
     this.doctors = [];
@@ -33,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 11, 31);
-
+    this.selectedDate=new FormControl(this.minDate)
     this.specialityServ.getAllSpeciality();
     if (!this.shared.isValidUser) {
       this.router.navigate(['login'])
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   filteredResults$: Observable<string[]>;
   filteredInsuResults$: Observable<string[]>;
   results: string[] = []
+  parsedDate:string;
   insuresults: string[] = ['United Health Group', 'Sigma', 'My Health']
   constructor(private readonly router: Router,
     private readonly specialityServ: SpecialitySerService, private readonly shared: SharedServService, private readonly docServ: DoctorsService) {
@@ -95,7 +97,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   searchDoc() {
+    console.log(moment(this.selectedDate.value).format('MM-DD-YYYY'))
+    this.parsedDate=moment(this.selectedDate.value).format('MM-DD-YYYY');
     this.docServ.getAllDoctor(this.searchControl.value);
   }
 
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    //this.events.push(`${type}: ${event.value}`);
+    this.searchDoc();
+  }
 }

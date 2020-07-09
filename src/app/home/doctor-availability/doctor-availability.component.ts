@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Doctor } from 'src/app/model/doctor';
+import { Doctor } from '../../model/doctor';
+
 
 @Component({
   selector: 'app-doctor-availability',
@@ -8,12 +9,30 @@ import { Doctor } from 'src/app/model/doctor';
 })
 export class DoctorAvailabilityComponent implements OnInit {
 
+  @Input() date:string;
   @Input() ind: any;
   @Input() doc: Doctor;
+  hours:Map<string,boolean>=new Map;
   constructor() { }
 
   ngOnInit() {
-    console.log('doctoe....', this.doc)
+    this.doc.availableHours.forEach(time=>{
+      if(this.doc.filledHours[this.date] && this.doc.filledHours[this.date].includes(time)){
+        this.hours.set(time,false);
+      }else{
+        this.hours.set(time,true);
+      }
+    })
+    console.log('doctoe....', this.hours)
+  }
+
+  getClass(flag){
+    if(flag){
+      return 'mat-chip-success'
+    }else{
+     return 'mat-chip-danger'
+    }
+  
   }
 
 }
